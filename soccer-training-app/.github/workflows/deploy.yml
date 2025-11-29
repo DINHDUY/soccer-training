@@ -1,0 +1,52 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: soccer-training-app/package-lock.json
+      
+      - name: Install dependencies
+        run: |
+          cd soccer-training-app
+          npm ci
+      
+      - name: Lint code
+        run: |
+          cd soccer-training-app
+          npm run lint
+      
+      - name: Run tests
+        run: |
+          cd soccer-training-app
+          npm test -- --run
+      
+      - name: Build application
+        run: |
+          cd soccer-training-app
+          npm run build
+      
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./soccer-training-app/dist
+          cname: false
