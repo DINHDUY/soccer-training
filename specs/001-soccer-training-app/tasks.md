@@ -19,20 +19,20 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create project using Vite with React-TypeScript template: `npm create vite@latest soccer-training-app -- --template react-ts`
-- [ ] T002 Install core dependencies: React 18.2+, TypeScript 5.3+, and configure package.json scripts per quickstart.md
-- [ ] T003 [P] Install testing dependencies: Vitest, React Testing Library, @testing-library/jest-dom, @testing-library/user-event, jsdom
-- [ ] T004 [P] Install code quality tools: ESLint, Prettier, eslint-plugin-react-hooks, eslint-plugin-jsx-a11y, eslint-config-prettier
-- [ ] T005 [P] Install deployment tools: gh-pages, Husky, lint-staged
-- [ ] T006 Configure vite.config.ts with path aliases (@/), test environment (jsdom), and GitHub Pages base path
-- [ ] T007 Configure tsconfig.json with strict mode and path mappings per quickstart.md
-- [ ] T008 [P] Configure ESLint (.eslintrc.cjs) with React hooks and accessibility plugins
-- [ ] T009 [P] Configure Prettier (.prettierrc) with project code style preferences
-- [ ] T010 [P] Configure Husky pre-commit hooks and lint-staged for automated quality checks
-- [ ] T011 Create project directory structure: src/{components,hooks,services,types,test}, tests/{unit,integration}
-- [ ] T012 Create test setup file src/test/setup.ts with localStorage and speechSynthesis mocks
-- [ ] T013 [P] Create GitHub Actions workflow .github/workflows/deploy.yml for automated deployment to GitHub Pages
-- [ ] T014 [P] Copy TypeScript type definitions from contracts/ to src/types/index.ts
+- [X] T001 Create project using Vite with React-TypeScript template: `npm create vite@latest soccer-training-app -- --template react-ts`
+- [X] T002 Install core dependencies: React 18.2+, TypeScript 5.3+, and configure package.json scripts per quickstart.md
+- [X] T003 [P] Install testing dependencies: Vitest, React Testing Library, @testing-library/jest-dom, @testing-library/user-event, jsdom
+- [X] T004 [P] Install code quality tools: ESLint, Prettier, eslint-plugin-react-hooks, eslint-plugin-jsx-a11y, eslint-config-prettier
+- [X] T005 [P] Install deployment tools: gh-pages, Husky, lint-staged
+- [X] T006 Configure vite.config.ts with path aliases (@/), test environment (jsdom), and GitHub Pages base path
+- [X] T007 Configure tsconfig.json with strict mode and path mappings per quickstart.md
+- [X] T008 [P] Configure ESLint (.eslintrc.cjs) with React hooks and accessibility plugins
+- [X] T009 [P] Configure Prettier (.prettierrc) with project code style preferences
+- [X] T010 [P] Configure Husky pre-commit hooks and lint-staged for automated quality checks
+- [X] T011 Create project directory structure: src/{components,hooks,services,types,test}, tests/{unit,integration}
+- [X] T012 Create test setup file src/test/setup.ts with localStorage and speechSynthesis mocks
+- [X] T013 [P] Create GitHub Actions workflow .github/workflows/deploy.yml for automated deployment to GitHub Pages
+- [X] T014 [P] Copy TypeScript type definitions from contracts/ to src/types/index.ts
 
 ---
 
@@ -42,15 +42,15 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T015 Create storageService in src/services/storageService.ts for localStorage persistence with error handling
-- [ ] T016 Create audioService in src/services/audioService.ts wrapping Web Speech API with browser support detection
-- [ ] T017 Write unit test for storageService in tests/unit/services/storageService.test.ts (load/save/clear config)
-- [ ] T018 Write unit test for audioService in tests/unit/services/audioService.test.ts (speak/cancel/isSupported)
-- [ ] T019 Implement useConfiguration hook in src/hooks/useConfiguration.ts with localStorage integration
-- [ ] T020 Write unit test for useConfiguration hook in tests/unit/hooks/useConfiguration.test.ts
-- [ ] T021 Create React Context providers structure in src/App.tsx with error boundary
-- [ ] T022 Create global CSS in src/index.css for full-screen layout, responsive design, and color transitions
-- [ ] T023 Configure App.tsx root component with context providers and keyboard/mouse/touch event listeners
+- [X] T015 Create storageService in src/services/storageService.ts for localStorage persistence with error handling
+- [X] T016 Create audioService in src/services/audioService.ts wrapping Web Speech API with browser support detection
+- [X] T017 Write unit test for storageService in tests/unit/services/storageService.test.ts (load/save/clear config)
+- [X] T018 Write unit test for audioService in tests/unit/services/audioService.test.ts (speak/cancel/isSupported)
+- [X] T019 Implement useConfiguration hook in src/hooks/useConfiguration.ts with localStorage integration
+- [X] T020 Write unit test for useConfiguration hook in tests/unit/hooks/useConfiguration.test.ts
+- [X] T021 Create React Context providers structure in src/App.tsx with error boundary
+- [X] T022 Create global CSS in src/index.css for full-screen layout, responsive design, and color transitions
+- [X] T023 Configure App.tsx root component with context providers and keyboard/mouse/touch event listeners
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
