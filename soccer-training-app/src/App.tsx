@@ -87,22 +87,11 @@ function AppContent() {
     }
   };
 
-  // Handle color display click (pause/resume)
-  const handleColorDisplayClick = () => {
+  // Handle pause/resume toggle
+  const handlePauseResume = () => {
     if (session.isPaused) {
-      console.log('[Training] Session resumed', {
-        sessionId: session.id,
-        elapsedTime: session.elapsedTime,
-        timestamp: new Date().toISOString()
-      });
       resume();
     } else if (session.isActive) {
-      console.log('[Training] Session paused', {
-        sessionId: session.id,
-        elapsedTime: session.elapsedTime,
-        colorChangeCount: session.colorChangeCount,
-        timestamp: new Date().toISOString()
-      });
       pause();
     }
   };
@@ -135,7 +124,7 @@ function AppContent() {
     <ColorDisplay
       currentColor={session.currentColor}
       isPaused={session.isPaused}
-      onClick={handleColorDisplayClick}
+      onPauseResume={handlePauseResume}
     />
   );
 }

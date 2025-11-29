@@ -5,16 +5,36 @@
  * Blue = Move LEFT, Red = Move RIGHT
  */
 
+import { useEffect, useRef } from 'react';
 import type { ColorDirection } from '@/types';
+import { PauseIndicator } from './PauseIndicator';
+import { useKeyboardMouse } from '@/hooks/useKeyboardMouse';
 
 export interface ColorDisplayProps {
   currentColor: ColorDirection;
   isPaused: boolean;
-  onClick: () => void;
+  onPauseResume: () => void;
 }
 
-export function ColorDisplay({ currentColor, isPaused, onClick }: ColorDisplayProps) {
+export function ColorDisplay({ currentColor, isPaused, onPauseResume }: ColorDisplayProps) {
   const direction = currentColor === 'blue' ? 'LEFT' : 'RIGHT';
+  const isPausedRef = useRef(isPaused);
+
+  // Track pause state changes for logging
+  useEffect(() => {
+    if (isPaused !== isPausedRef.current) {
+      const timestamp = new Date().toISOString();
+      if (isPaused) {
+        console.log(`[${timestamp}] Session paused`);
+      } else if (isPausedRef.current) {
+        console.log(`[${timestamp}] Session resumed`);
+      }
+      isPausedRef.current = isPaused;
+    }
+  }, [isPaused]);
+
+  // Set up keyboard/mouse/touch handlers for pause/resume
+  useKeyboardMouse(onPauseResume);
 
   return (
     <main
@@ -22,20 +42,10 @@ export function ColorDisplay({ currentColor, isPaused, onClick }: ColorDisplayPr
       role="main"
       aria-live="polite"
       aria-label={`Move ${direction}`}
-      onClick={onClick}
-      onKeyDown={(e) => {
-        if (e.key === ' ' || e.key === 'Enter') {
-          e.preventDefault();
-          onClick();
-        }
-      }}
+      data-testid="color-display"
       tabIndex={0}
     >
-      {isPaused && (
-        <div className="pause-indicator" role="status" aria-label="Session paused">
-          PAUSED
-        </div>
-      )}
+      <PauseIndicator isPaused={isPaused} />
     </main>
   );
 }

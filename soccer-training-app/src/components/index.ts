@@ -7,3 +7,5 @@ export type { ColorDisplayProps } from './ColorDisplay';
 
 export { ConfigDialog } from './ConfigDialog';
 export type { ConfigDialogProps } from './ConfigDialog';
+
+export { PauseIndicator } from './PauseIndicator';

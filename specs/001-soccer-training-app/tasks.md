@@ -64,18 +64,18 @@
 
 ### Tests for User Story 1 (Write FIRST - ensure they FAIL before implementation)
 
-- [ ] T024 [P] [US1] Write integration test for config-to-session flow in tests/integration/trainingSession.test.tsx (dialog → submit → session starts)
-- [ ] T025 [P] [US1] Write unit test for useTrainingSession hook in tests/unit/hooks/useTrainingSession.test.ts (start/pause/resume/color change state machine)
+- [X] T024 [P] [US1] Write integration test for config-to-session flow in tests/integration/trainingSession.test.tsx (dialog → submit → session starts)
+- [X] T025 [P] [US1] Write unit test for useTrainingSession hook in tests/unit/hooks/useTrainingSession.test.ts (start/pause/resume/color change state machine)
 
 ### Implementation for User Story 1
 
-- [ ] T026 [P] [US1] Create ColorDisplay component in src/components/ColorDisplay.tsx with full-screen color background and ARIA live region
-- [ ] T027 [P] [US1] Create ConfigDialog component in src/components/ConfigDialog.tsx with frequency input validation (0.5-60 range)
-- [ ] T028 [US1] Implement useTrainingSession hook in src/hooks/useTrainingSession.ts with session reducer and timer logic for color changes
-- [ ] T029 [US1] Write unit test for ColorDisplay component in tests/unit/components/ColorDisplay.test.tsx (renders correct color, ARIA labels)
-- [ ] T030 [US1] Write unit test for ConfigDialog component in tests/unit/components/ConfigDialog.test.tsx (validation, submit, default values)
-- [ ] T031 [US1] Integrate ColorDisplay and ConfigDialog in App.tsx with session state management
-- [ ] T032 [US1] Add session start/stop logging to console per NFR-009
+- [X] T026 [P] [US1] Create ColorDisplay component in src/components/ColorDisplay.tsx with full-screen color background and ARIA live region
+- [X] T027 [P] [US1] Create ConfigDialog component in src/components/ConfigDialog.tsx with frequency input validation (0.5-60 range)
+- [X] T028 [US1] Implement useTrainingSession hook in src/hooks/useTrainingSession.ts with session reducer and timer logic for color changes
+- [X] T029 [US1] Write unit test for ColorDisplay component in tests/unit/components/ColorDisplay.test.tsx (renders correct color, ARIA labels)
+- [X] T030 [US1] Write unit test for ConfigDialog component in tests/unit/components/ConfigDialog.test.tsx (validation, submit, default values)
+- [X] T031 [US1] Integrate ColorDialog and ConfigDialog in App.tsx with session state management
+- [X] T032 [US1] Add session start/stop logging to console per NFR-009
 
 **Checkpoint**: User Story 1 complete - app loads with config dialog, starts session, colors alternate at configured frequency
 
@@ -89,18 +89,18 @@
 
 ### Tests for User Story 2 (Write FIRST - ensure they FAIL before implementation)
 
-- [ ] T033 [P] [US2] Write integration test for pause/resume flow in tests/integration/sessionControl.test.tsx (keyboard/mouse/touch all trigger pause/resume)
-- [ ] T034 [P] [US2] Write unit test for useKeyboardMouse hook in tests/unit/hooks/useKeyboardMouse.test.ts (event handlers)
+- [X] T033 [P] [US2] Write integration test for pause/resume flow in tests/integration/pauseResume.test.tsx (keyboard/mouse/touch all trigger pause/resume)
+- [X] T034 [P] [US2] Write unit test for useKeyboardMouse hook in tests/unit/hooks/useKeyboardMouse.test.ts (event handlers)
 
 ### Implementation for User Story 2
 
-- [ ] T035 [P] [US2] Create PauseIndicator component in src/components/PauseIndicator.tsx with pause icon and animation
-- [ ] T036 [US2] Implement useKeyboardMouse hook in src/hooks/useKeyboardMouse.ts for keyboard/mouse/touch event handling
-- [ ] T037 [US2] Write unit test for PauseIndicator component in tests/unit/components/PauseIndicator.test.tsx (visibility, styling)
-- [ ] T038 [US2] Extend useTrainingSession hook to handle PAUSE and RESUME actions with timer cancellation
-- [ ] T039 [US2] Integrate PauseIndicator into ColorDisplay component (conditional rendering based on isPaused)
-- [ ] T040 [US2] Connect useKeyboardMouse to session pause/resume dispatch in App.tsx
-- [ ] T041 [US2] Add pause/resume logging to console per NFR-009
+- [X] T035 [P] [US2] Create PauseIndicator component in src/components/PauseIndicator.tsx with pause text and hint
+- [X] T036 [US2] Implement useKeyboardMouse hook in src/hooks/useKeyboardMouse.ts for keyboard/mouse/touch event handling
+- [X] T037 [US2] Write unit test for PauseIndicator component in tests/unit/components/PauseIndicator.test.tsx (visibility, styling)
+- [X] T038 [US2] Extend useTrainingSession hook to handle PAUSE and RESUME actions with timer cancellation (already complete from Phase 3)
+- [X] T039 [US2] Integrate PauseIndicator into ColorDisplay component (conditional rendering based on isPaused)
+- [X] T040 [US2] Connect useKeyboardMouse to session pause/resume in ColorDisplay.tsx
+- [X] T041 [US2] Add pause/resume logging to console per NFR-009
 
 **Checkpoint**: User Stories 1 AND 2 complete - session can be paused/resumed via any input method with visual feedback
 
