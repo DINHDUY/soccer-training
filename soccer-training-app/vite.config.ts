@@ -3,10 +3,10 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 // https://vite.dev/config/
-export default defineConfig(({ command }) => ({
+export default defineConfig(() => ({
   plugins: [react()],
-  // Use '/soccer-training-app/' for GitHub Pages, '/' for local preview
-  base: command === 'build' && process.env.GITHUB_PAGES ? '/soccer-training-app/' : '/',
+  // Use '/soccer-training/' for GitHub Pages (repository name), '/' for local preview
+  base: process.env.GITHUB_PAGES === 'true' ? '/soccer-training/' : '/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
