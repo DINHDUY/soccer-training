@@ -22,9 +22,9 @@ export function HelpOverlay({ isVisible, onClose }: HelpOverlayProps) {
   if (!isVisible) return null;
 
   return (
-    <div className="help-overlay" role="dialog" aria-modal="true" aria-label="Help and Instructions">
+    <div className="help-overlay" role="dialog" aria-modal="true" aria-labelledby="help-title">
       <div className="help-content">
-        <h2>Soccer Training - Help</h2>
+        <h2 id="help-title">Soccer Training - Help</h2>
         
         <section>
           <h3>Color Meanings</h3>

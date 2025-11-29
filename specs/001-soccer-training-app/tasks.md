@@ -182,16 +182,16 @@
 
 **Purpose**: Accessibility compliance (NFR-010, NFR-011) and cross-cutting improvements
 
-- [ ] T066 [P] Add ARIA labels to all interactive elements (buttons, inputs, dialogs) per NFR-010
-- [ ] T067 [P] Implement ARIA live regions for color change announcements ("Moving LEFT"/"Moving RIGHT")
-- [ ] T068 [P] Test keyboard-only navigation: Tab to all controls, Enter/Space to activate, Escape to close dialogs
-- [ ] T069 [P] Add focus trap to dialogs (ConfigDialog, SettingsDialog, HelpOverlay) for keyboard accessibility
-- [ ] T070 [P] Verify responsive layout on devices 320px-2560px width per SC-004
-- [ ] T071 [P] Add CSS transitions for smooth color changes (60fps target per performance goals)
-- [ ] T072 [P] Optimize bundle size and verify <3s page load per NFR-007 and SC-006
-- [ ] T073 [P] Test across Chrome, Firefox, Safari, Edge (current and previous versions) per NFR-008
-- [ ] T074 Add React error boundary in App.tsx with user-friendly error display per NFR-009
-- [ ] T075 [P] Write accessibility integration test in tests/integration/accessibility.test.tsx (keyboard navigation, screen reader announcements)
+- [X] T066 [P] Add ARIA labels to all interactive elements (buttons, inputs, dialogs) per NFR-010
+- [X] T067 [P] Implement ARIA live regions for color change announcements ("Moving LEFT"/"Moving RIGHT")
+- [X] T068 [P] Test keyboard-only navigation: Tab to all controls, Enter/Space to activate, Escape to close dialogs
+- [X] T069 [P] Add focus trap to dialogs (ConfigDialog, SettingsDialog, HelpOverlay) for keyboard accessibility
+- [X] T070 [P] Verify responsive layout on devices 320px-2560px width per SC-004
+- [X] T071 [P] Add CSS transitions for smooth color changes (60fps target per performance goals)
+- [X] T072 [P] Optimize bundle size and verify <3s page load per NFR-007 and SC-006
+- [X] T073 [P] Test across Chrome, Firefox, Safari, Edge (current and previous versions) per NFR-008
+- [X] T074 Add React error boundary in App.tsx with user-friendly error display per NFR-009
+- [X] T075 [P] Write accessibility integration test in tests/integration/accessibility.test.tsx (keyboard navigation, screen reader announcements)
 
 ---
 
@@ -199,13 +199,13 @@
 
 **Purpose**: Production readiness and deployment automation
 
-- [ ] T076 [P] Update README.md with project description, setup instructions, and deployment link
-- [ ] T077 [P] Add inline code comments for complex logic (timer management, state machine transitions)
+- [X] T076 [P] Update README.md with project description, setup instructions, and deployment link
+- [X] T077 [P] Add inline code comments for complex logic (timer management, state machine transitions)
 - [ ] T078 Verify GitHub Actions workflow deploys successfully to GitHub Pages
 - [ ] T079 Test deployed application on GitHub Pages URL with all user stories
-- [ ] T080 [P] Run full test suite and verify 80%+ coverage per SC-011: `npm run test:coverage`
-- [ ] T081 [P] Validate quickstart.md instructions work for new developer setup
-- [ ] T082 Create production build and verify bundle optimization: `npm run build`
+- [X] T080 [P] Run full test suite and verify 80%+ coverage per SC-011: `npm run test:coverage`
+- [X] T081 [P] Validate quickstart.md instructions work for new developer setup
+- [X] T082 Create production build and verify bundle optimization: `npm run build`
 - [ ] T083 [P] Add build status badge to README.md
 
 ---

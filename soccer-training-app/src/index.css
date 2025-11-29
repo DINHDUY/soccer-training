@@ -23,6 +23,19 @@ body,
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Screen reader only - visually hidden but accessible to assistive tech */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 /* Full-screen color display */
 .color-display {
   width: 100vw;
@@ -32,6 +45,7 @@ body,
   justify-content: center;
   transition: background-color 0.3s ease-in-out;
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   position: relative;
 }

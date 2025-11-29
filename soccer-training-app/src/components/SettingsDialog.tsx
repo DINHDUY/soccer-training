@@ -83,8 +83,8 @@ export function SettingsDialog({
           </div>
 
           <div className="button-group">
-            <button type="submit">Save</button>
-            <button type="button" onClick={onCancel}>Cancel</button>
+            <button type="submit" aria-label="Save settings and resume session">Save</button>
+            <button type="button" onClick={onCancel} aria-label="Cancel changes and resume session">Cancel</button>
           </div>
         </form>
       </div>

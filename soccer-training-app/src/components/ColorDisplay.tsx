@@ -42,10 +42,19 @@ export function ColorDisplay({ currentColor, isPaused, onPauseResume, onHelp }: 
       className={`color-display ${currentColor}`}
       role="main"
       aria-live="polite"
-      aria-label={`Move ${direction}`}
+      aria-label={isPaused ? `Training paused. Move ${direction} when resumed.` : `Move ${direction}`}
       data-testid="color-display"
       tabIndex={0}
     >
+      {/* Screen reader announcement for color changes */}
+      <div 
+        className="sr-only" 
+        aria-live="assertive" 
+        aria-atomic="true"
+        role="status"
+      >
+        {!isPaused && `Moving ${direction}`}
+      </div>
       <PauseIndicator isPaused={isPaused} />
     </main>
   );

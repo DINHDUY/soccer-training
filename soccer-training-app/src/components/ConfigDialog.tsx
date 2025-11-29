@@ -74,7 +74,7 @@ export function ConfigDialog({
             <label htmlFor="audio">Enable audio cues (LEFT/RIGHT)</label>
           </div>
 
-          <button type="submit">Start Training</button>
+          <button type="submit" aria-label="Start training session with configured settings">Start Training</button>
         </form>
       </div>
     </div>

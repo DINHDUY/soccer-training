@@ -65,7 +65,7 @@ describe('HelpOverlay', () => {
     
     const dialog = screen.getByRole('dialog');
     expect(dialog).toHaveAttribute('aria-modal', 'true');
-    expect(dialog).toHaveAttribute('aria-label');
+    expect(dialog).toHaveAttribute('aria-labelledby', 'help-title');
   });
 
   it('should call onClose when Escape key is pressed', () => {
