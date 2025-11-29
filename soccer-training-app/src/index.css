@@ -209,6 +209,28 @@ body,
   margin-bottom: 0.5rem;
 }
 
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.button-group button {
+  flex: 1;
+}
+
+.button-group button[type="button"] {
+  background-color: #6b7280;
+}
+
+.button-group button[type="button"]:hover {
+  background-color: #4b5563;
+}
+
+.button-group button[type="button"]:active {
+  background-color: #374151;
+}
+
 /* Settings button (floating) */
 .settings-button {
   position: fixed;

@@ -161,18 +161,18 @@
 
 ### Tests for Settings (Write FIRST)
 
-- [ ] T057 [P] Write integration test for settings dialog in tests/integration/settingsDialog.test.tsx (open pauses session, save applies changes, cancel preserves old config)
-- [ ] T058 [P] Write unit test for SettingsButton component in tests/unit/components/SettingsButton.test.tsx
-- [ ] T059 [P] Write unit test for SettingsDialog component in tests/unit/components/SettingsDialog.test.tsx
+- [X] T057 [P] Write integration test for settings dialog in tests/integration/settingsDialog.test.tsx (open pauses session, save applies changes, cancel preserves old config)
+- [X] T058 [P] Write unit test for SettingsButton component in tests/unit/components/SettingsButton.test.tsx
+- [X] T059 [P] Write unit test for SettingsDialog component in tests/unit/components/SettingsDialog.test.tsx
 
 ### Implementation for Settings
 
-- [ ] T060 [P] Create SettingsButton component in src/components/SettingsButton.tsx (floating button visible during active session)
-- [ ] T061 [P] Create SettingsDialog component in src/components/SettingsDialog.tsx (frequency input + audio toggle)
-- [ ] T062 Add SHOW_SETTINGS_DIALOG and HIDE_SETTINGS_DIALOG actions to UIState management
-- [ ] T063 Add UPDATE_FREQUENCY action to useTrainingSession hook to change frequency mid-session
-- [ ] T064 Integrate SettingsButton and SettingsDialog into App.tsx with pause-on-open behavior
-- [ ] T065 Add settings change logging to console per NFR-009
+- [X] T060 [P] Create SettingsButton component in src/components/SettingsButton.tsx (floating button visible during active session)
+- [X] T061 [P] Create SettingsDialog component in src/components/SettingsDialog.tsx (frequency input + audio toggle)
+- [X] T062 Add SHOW_SETTINGS_DIALOG and HIDE_SETTINGS_DIALOG actions to UIState management
+- [X] T063 Add UPDATE_FREQUENCY action to useTrainingSession hook to change frequency mid-session
+- [X] T064 Integrate SettingsButton and SettingsDialog into App.tsx with pause-on-open behavior
+- [X] T065 Add settings change logging to console per NFR-009
 
 **Checkpoint**: Settings reconfiguration complete - users can adjust preferences without restarting
 

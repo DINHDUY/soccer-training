@@ -9,6 +9,8 @@ import type { ReactNode } from 'react';
 import { ColorDisplay } from '@/components/ColorDisplay';
 import { ConfigDialog } from '@/components/ConfigDialog';
 import { HelpOverlay } from '@/components/HelpOverlay';
+import { SettingsButton } from '@/components/SettingsButton';
+import { SettingsDialog } from '@/components/SettingsDialog';
 import { useConfiguration } from '@/hooks/useConfiguration';
 import { useTrainingSession } from '@/hooks/useTrainingSession';
 import { useAudioCues } from '@/hooks/useAudioCues';
@@ -61,9 +63,10 @@ class ErrorBoundary extends Component<
 // Main App Content
 function AppContent() {
   const { config, updateConfig } = useConfiguration();
-  const { session, start, pause, resume } = useTrainingSession();
+  const { session, start, pause, resume, updateFrequency } = useTrainingSession();
   const { speak, cancel, isSupported } = useAudioCues(config.audioEnabled);
   const [showHelpOverlay, setShowHelpOverlay] = useState(false);
+  const [showSettingsDialog, setShowSettingsDialog] = useState(false);
 
   // Play audio cue when color changes or session starts
   useEffect(() => {
@@ -108,6 +111,45 @@ function AppContent() {
     }
   };
 
+  // Handle settings button click
+  const handleSettingsOpen = () => {
+    setShowSettingsDialog(true);
+    if (session.isActive && !session.isPaused) {
+      pause();
+    }
+  };
+
+  // Handle settings save
+  const handleSettingsSave = (frequency: number, audioEnabled: boolean) => {
+    console.log('[Training] Settings changed', {
+      oldFrequency: config.frequency,
+      newFrequency: frequency,
+      oldAudioEnabled: config.audioEnabled,
+      newAudioEnabled: audioEnabled,
+      timestamp: new Date().toISOString()
+    });
+
+    // Update configuration
+    updateConfig({ frequency, audioEnabled });
+
+    // Update session frequency
+    updateFrequency(frequency);
+
+    // Close dialog and resume session
+    setShowSettingsDialog(false);
+    if (session.isActive) {
+      resume();
+    }
+  };
+
+  // Handle settings cancel
+  const handleSettingsCancel = () => {
+    setShowSettingsDialog(false);
+    if (session.isActive && session.isPaused) {
+      resume();
+    }
+  };
+
   // Log session end on unmount
   if (session.isActive) {
     window.addEventListener('beforeunload', () => {
@@ -145,9 +187,19 @@ function AppContent() {
         onPauseResume={handlePauseResume}
         onHelp={() => setShowHelpOverlay(true)}
       />
+      {session.isActive && (
+        <SettingsButton onClick={handleSettingsOpen} />
+      )}
       <HelpOverlay 
         isVisible={showHelpOverlay}
         onClose={() => setShowHelpOverlay(false)}
+      />
+      <SettingsDialog
+        isOpen={showSettingsDialog}
+        currentFrequency={config.frequency}
+        currentAudioEnabled={config.audioEnabled}
+        onSave={handleSettingsSave}
+        onCancel={handleSettingsCancel}
       />
     </>
   );
