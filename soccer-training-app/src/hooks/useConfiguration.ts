@@ -22,8 +22,6 @@ export function useConfiguration() {
     const savedConfig = storageService.loadConfig();
     return savedConfig || DEFAULT_CONFIG;
   });
-  
-  const [isLoaded, setIsLoaded] = useState(true);
 
   // Update configuration and persist to localStorage
   const updateConfig = useCallback(
@@ -43,7 +41,6 @@ export function useConfiguration() {
 
   return {
     config,
-    isLoaded,
     updateConfig,
     resetConfig,
   };

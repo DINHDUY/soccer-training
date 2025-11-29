@@ -1,12 +1,16 @@
 /**
  * App Component
  * 
- * Root component with error boundary and application structure.
- * This is a placeholder for Phase 2; full implementation comes in Phase 3+.
+ * Root application component with error boundary and state management.
  */
 
-import { Component, ReactNode } from 'react';
+import { Component } from 'react';
+import type { ReactNode } from 'react';
+import { ColorDisplay } from '@/components/ColorDisplay';
+import { ConfigDialog } from '@/components/ConfigDialog';
 import { useConfiguration } from '@/hooks/useConfiguration';
+import { useTrainingSession } from '@/hooks/useTrainingSession';
+import { audioService } from '@/services/audioService';
 
 // Error Boundary Component
 class ErrorBoundary extends Component<
@@ -19,46 +23,28 @@ class ErrorBoundary extends Component<
   }
 
   static getDerivedStateFromError(error: Error) {
+    console.error('[App] Error boundary caught error:', error);
     return { hasError: true, error };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('[ErrorBoundary] Uncaught error:', error, errorInfo);
+    console.error('[App] Error boundary componentDidCatch:', error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
       return (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100vh',
-            backgroundColor: '#fee2e2',
-            color: '#991b1b',
-            padding: '2rem',
-            textAlign: 'center',
-          }}
-        >
-          <div>
-            <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>
+        <div className="error-boundary">
+          <div className="error-boundary-content">
+            <h1 className="error-boundary-title">
               Something went wrong
             </h1>
-            <p style={{ marginBottom: '1rem' }}>
+            <p className="error-boundary-message">
               {this.state.error?.message || 'An unexpected error occurred'}
             </p>
             <button
+              className="error-boundary-button"
               onClick={() => window.location.reload()}
-              style={{
-                padding: '0.75rem 1.5rem',
-                fontSize: '1rem',
-                backgroundColor: '#dc2626',
-                color: 'white',
-                border: 'none',
-                borderRadius: '0.375rem',
-                cursor: 'pointer',
-              }}
             >
               Reload Application
             </button>
@@ -71,60 +57,86 @@ class ErrorBoundary extends Component<
   }
 }
 
-// Placeholder App Content (will be replaced in Phase 3)
+// Main App Content
 function AppContent() {
-  const { config, isLoaded } = useConfiguration();
+  const { config, updateConfig } = useConfiguration();
+  const { session, start, pause, resume } = useTrainingSession();
 
-  if (!isLoaded) {
+  // Handle configuration submission
+  const handleConfigSubmit = (frequency: number, audioEnabled: boolean) => {
+    console.log('[Training] Session started', { 
+      frequency, 
+      audioEnabled,
+      timestamp: new Date().toISOString()
+    });
+    
+    // Update configuration and mark first run complete
+    updateConfig({
+      frequency,
+      audioEnabled,
+      hasCompletedFirstRun: true,
+    });
+
+    // Start training session
+    start(frequency);
+
+    // Announce first color if audio enabled
+    if (audioEnabled && audioService.isSupported()) {
+      const direction = session.currentColor === 'blue' ? 'LEFT' : 'RIGHT';
+      audioService.speak(direction);
+    }
+  };
+
+  // Handle color display click (pause/resume)
+  const handleColorDisplayClick = () => {
+    if (session.isPaused) {
+      console.log('[Training] Session resumed', {
+        sessionId: session.id,
+        elapsedTime: session.elapsedTime,
+        timestamp: new Date().toISOString()
+      });
+      resume();
+    } else if (session.isActive) {
+      console.log('[Training] Session paused', {
+        sessionId: session.id,
+        elapsedTime: session.elapsedTime,
+        colorChangeCount: session.colorChangeCount,
+        timestamp: new Date().toISOString()
+      });
+      pause();
+    }
+  };
+
+  // Log session end on unmount
+  if (session.isActive) {
+    window.addEventListener('beforeunload', () => {
+      console.log('[Training] Session ended', {
+        sessionId: session.id,
+        elapsedTime: session.elapsedTime,
+        colorChangeCount: session.colorChangeCount,
+        timestamp: new Date().toISOString()
+      });
+    });
+  }
+
+  // Show configuration dialog if first run not completed
+  if (!config.hasCompletedFirstRun) {
     return (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100vh',
-          fontSize: '1.5rem',
-        }}
-      >
-        Loading...
-      </div>
+      <ConfigDialog
+        onSubmit={handleConfigSubmit}
+        defaultFrequency={config.frequency}
+        defaultAudioEnabled={config.audioEnabled}
+      />
     );
   }
 
+  // Show color display once configured
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
-        backgroundColor: '#2563eb',
-        color: 'white',
-        padding: '2rem',
-        textAlign: 'center',
-      }}
-    >
-      <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>
-        Soccer Training App
-      </h1>
-      <p style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>
-        Foundational Phase Complete ✓
-      </p>
-      <p style={{ fontSize: '1rem', opacity: 0.8 }}>
-        Configuration loaded: Frequency {config.frequency}s, Audio:{' '}
-        {config.audioEnabled ? 'ON' : 'OFF'}
-      </p>
-      <p
-        style={{
-          marginTop: '2rem',
-          fontSize: '0.875rem',
-          opacity: 0.6,
-        }}
-      >
-        Phase 3 (MVP) implementation starts next...
-      </p>
-    </div>
+    <ColorDisplay
+      currentColor={session.currentColor}
+      isPaused={session.isPaused}
+      onClick={handleColorDisplayClick}
+    />
   );
 }
 

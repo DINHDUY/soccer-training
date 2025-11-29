@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { renderHook, act, waitFor } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 import { useConfiguration } from '@/hooks/useConfiguration';
 import { storageService } from '@/services/storageService';
 import type { UserConfiguration } from '@/types';
@@ -21,9 +21,6 @@ describe('useConfiguration', () => {
 
     const { result } = renderHook(() => useConfiguration());
 
-    await waitFor(() => {
-      expect(result.current.isLoaded).toBe(true);
-    });
 
     expect(result.current.config).toEqual({
       frequency: 2,
@@ -45,9 +42,6 @@ describe('useConfiguration', () => {
 
     const { result } = renderHook(() => useConfiguration());
 
-    await waitFor(() => {
-      expect(result.current.isLoaded).toBe(true);
-    });
 
     expect(result.current.config).toEqual(savedConfig);
   });
@@ -57,9 +51,6 @@ describe('useConfiguration', () => {
 
     const { result } = renderHook(() => useConfiguration());
 
-    await waitFor(() => {
-      expect(result.current.isLoaded).toBe(true);
-    });
 
     act(() => {
       result.current.updateConfig({ frequency: 5.0 });
@@ -76,9 +67,6 @@ describe('useConfiguration', () => {
 
     const { result } = renderHook(() => useConfiguration());
 
-    await waitFor(() => {
-      expect(result.current.isLoaded).toBe(true);
-    });
 
     act(() => {
       result.current.updateConfig({
@@ -107,9 +95,6 @@ describe('useConfiguration', () => {
 
     const { result } = renderHook(() => useConfiguration());
 
-    await waitFor(() => {
-      expect(result.current.isLoaded).toBe(true);
-    });
 
     act(() => {
       result.current.resetConfig();
@@ -136,9 +121,6 @@ describe('useConfiguration', () => {
 
     const { result } = renderHook(() => useConfiguration());
 
-    await waitFor(() => {
-      expect(result.current.isLoaded).toBe(true);
-    });
 
     act(() => {
       result.current.updateConfig({ frequency: 3.0 });
