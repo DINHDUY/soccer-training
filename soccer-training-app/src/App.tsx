@@ -4,14 +4,14 @@
  * Root application component with error boundary and state management.
  */
 
-import { Component, useState } from 'react';
+import { Component, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { ColorDisplay } from '@/components/ColorDisplay';
 import { ConfigDialog } from '@/components/ConfigDialog';
 import { HelpOverlay } from '@/components/HelpOverlay';
 import { useConfiguration } from '@/hooks/useConfiguration';
 import { useTrainingSession } from '@/hooks/useTrainingSession';
-import { audioService } from '@/services/audioService';
+import { useAudioCues } from '@/hooks/useAudioCues';
 
 // Error Boundary Component
 class ErrorBoundary extends Component<
@@ -62,7 +62,23 @@ class ErrorBoundary extends Component<
 function AppContent() {
   const { config, updateConfig } = useConfiguration();
   const { session, start, pause, resume } = useTrainingSession();
+  const { speak, cancel, isSupported } = useAudioCues(config.audioEnabled);
   const [showHelpOverlay, setShowHelpOverlay] = useState(false);
+
+  // Play audio cue when color changes or session starts
+  useEffect(() => {
+    if (session.isActive && !session.isPaused) {
+      const direction = session.currentColor === 'blue' ? 'LEFT' : 'RIGHT';
+      speak(direction);
+    }
+  }, [session.currentColor, session.isActive, session.isPaused, speak]);
+
+  // Cancel audio when session pauses
+  useEffect(() => {
+    if (session.isPaused) {
+      cancel();
+    }
+  }, [session.isPaused, cancel]);
 
   // Handle configuration submission
   const handleConfigSubmit = (frequency: number, audioEnabled: boolean) => {
@@ -79,14 +95,8 @@ function AppContent() {
       hasCompletedFirstRun: true,
     });
 
-    // Start training session
+    // Start training session (audio will be triggered by useEffect)
     start(frequency);
-
-    // Announce first color if audio enabled
-    if (audioEnabled && audioService.isSupported()) {
-      const direction = session.currentColor === 'blue' ? 'LEFT' : 'RIGHT';
-      audioService.speak(direction);
-    }
   };
 
   // Handle pause/resume toggle
@@ -124,6 +134,11 @@ function AppContent() {
   // Show color display once configured
   return (
     <>
+      {config.audioEnabled && !isSupported && (
+        <div className="audio-unsupported-banner" role="alert">
+          Audio cues are not supported in this browser
+        </div>
+      )}
       <ColorDisplay
         currentColor={session.currentColor}
         isPaused={session.isPaused}

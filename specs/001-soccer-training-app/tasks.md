@@ -114,16 +114,16 @@
 
 ### Tests for User Story 3 (Write FIRST - ensure they FAIL before implementation)
 
-- [ ] T042 [P] [US3] Write integration test for help overlay in tests/integration/helpOverlay.test.tsx (h/? opens, Escape closes, maintains session state)
-- [ ] T043 [P] [US3] Write unit test for HelpOverlay component in tests/unit/components/HelpOverlay.test.tsx (content, keyboard close)
+- [X] T042 [P] [US3] Write integration test for help overlay in tests/integration/helpOverlay.test.tsx (h/? opens, Escape closes, maintains session state)
+- [X] T043 [P] [US3] Write unit test for HelpOverlay component in tests/unit/components/HelpOverlay.test.tsx (content, keyboard close)
 
 ### Implementation for User Story 3
 
-- [ ] T044 [US3] Create HelpOverlay component in src/components/HelpOverlay.tsx with instructions and keyboard shortcuts
-- [ ] T045 [US3] Extend useKeyboardMouse hook to detect 'h' and '?' keys and dispatch SHOW_HELP action
-- [ ] T046 [US3] Add UIState management to App.tsx for showHelpOverlay state
-- [ ] T047 [US3] Integrate HelpOverlay into App.tsx with conditional rendering based on UIState
-- [ ] T048 [US3] Add Escape key handler to close help overlay without affecting session state
+- [X] T044 [US3] Create HelpOverlay component in src/components/HelpOverlay.tsx with instructions and keyboard shortcuts
+- [X] T045 [US3] Extend useKeyboardMouse hook to detect 'h' and '?' keys and dispatch SHOW_HELP action
+- [X] T046 [US3] Add UIState management to App.tsx for showHelpOverlay state
+- [X] T047 [US3] Integrate HelpOverlay into App.tsx with conditional rendering based on UIState
+- [X] T048 [US3] Add Escape key handler to close help overlay without affecting session state
 
 **Checkpoint**: User Stories 1, 2, AND 3 complete - users can access contextual help without disrupting training
 
@@ -137,17 +137,17 @@
 
 ### Tests for User Story 4 (Write FIRST - ensure they FAIL before implementation)
 
-- [ ] T049 [P] [US4] Write integration test for audio cues in tests/integration/audioCues.test.tsx (audio plays on color change when enabled)
-- [ ] T050 [P] [US4] Write unit test for useAudioCues hook in tests/unit/hooks/useAudioCues.test.ts (speak/cancel behavior)
+- [X] T049 [P] [US4] Write integration test for audio cues in tests/integration/audioCues.test.tsx (audio plays on color change when enabled)
+- [X] T050 [P] [US4] Write unit test for useAudioCues hook in tests/unit/hooks/useAudioCues.test.ts (speak/cancel behavior)
 
 ### Implementation for User Story 4
 
-- [ ] T051 [US4] Implement useAudioCues hook in src/hooks/useAudioCues.ts wrapping audioService with enabled state check
-- [ ] T052 [US4] Add audio toggle checkbox to ConfigDialog component for initial preference
-- [ ] T053 [US4] Integrate useAudioCues with useTrainingSession to trigger speech on COLOR_CHANGE action
-- [ ] T054 [US4] Add audio permission request on first user interaction per browser autoplay policies
-- [ ] T055 [US4] Cancel pending speech when session is paused to avoid delayed audio
-- [ ] T056 [US4] Add fallback UI message when speechSynthesis is not supported by browser
+- [X] T051 [US4] Implement useAudioCues hook in src/hooks/useAudioCues.ts wrapping audioService with enabled state check
+- [X] T052 [US4] Add audio toggle checkbox to ConfigDialog component for initial preference
+- [X] T053 [US4] Integrate useAudioCues with useTrainingSession to trigger speech on COLOR_CHANGE action
+- [X] T054 [US4] Add audio permission request on first user interaction per browser autoplay policies
+- [X] T055 [US4] Cancel pending speech when session is paused to avoid delayed audio
+- [X] T056 [US4] Add fallback UI message when speechSynthesis is not supported by browser
 
 **Checkpoint**: All 4 user stories complete - full feature set implemented with audio enhancement
 
