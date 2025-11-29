@@ -64,18 +64,18 @@
 
 ### Tests for User Story 1 (Write FIRST - ensure they FAIL before implementation)
 
-- [ ] T024 [P] [US1] Write integration test for config-to-session flow in tests/integration/trainingSession.test.tsx (dialog → submit → session starts)
-- [ ] T025 [P] [US1] Write unit test for useTrainingSession hook in tests/unit/hooks/useTrainingSession.test.ts (start/pause/resume/color change state machine)
+- [X] T024 [P] [US1] Write integration test for config-to-session flow in tests/integration/trainingSession.test.tsx (dialog → submit → session starts)
+- [X] T025 [P] [US1] Write unit test for useTrainingSession hook in tests/unit/hooks/useTrainingSession.test.ts (start/pause/resume/color change state machine)
 
 ### Implementation for User Story 1
 
-- [ ] T026 [P] [US1] Create ColorDisplay component in src/components/ColorDisplay.tsx with full-screen color background and ARIA live region
-- [ ] T027 [P] [US1] Create ConfigDialog component in src/components/ConfigDialog.tsx with frequency input validation (0.5-60 range)
-- [ ] T028 [US1] Implement useTrainingSession hook in src/hooks/useTrainingSession.ts with session reducer and timer logic for color changes
-- [ ] T029 [US1] Write unit test for ColorDisplay component in tests/unit/components/ColorDisplay.test.tsx (renders correct color, ARIA labels)
-- [ ] T030 [US1] Write unit test for ConfigDialog component in tests/unit/components/ConfigDialog.test.tsx (validation, submit, default values)
-- [ ] T031 [US1] Integrate ColorDisplay and ConfigDialog in App.tsx with session state management
-- [ ] T032 [US1] Add session start/stop logging to console per NFR-009
+- [X] T026 [P] [US1] Create ColorDisplay component in src/components/ColorDisplay.tsx with full-screen color background and ARIA live region
+- [X] T027 [P] [US1] Create ConfigDialog component in src/components/ConfigDialog.tsx with frequency input validation (0.5-60 range)
+- [X] T028 [US1] Implement useTrainingSession hook in src/hooks/useTrainingSession.ts with session reducer and timer logic for color changes
+- [X] T029 [US1] Write unit test for ColorDisplay component in tests/unit/components/ColorDisplay.test.tsx (renders correct color, ARIA labels)
+- [X] T030 [US1] Write unit test for ConfigDialog component in tests/unit/components/ConfigDialog.test.tsx (validation, submit, default values)
+- [X] T031 [US1] Integrate ColorDialog and ConfigDialog in App.tsx with session state management
+- [X] T032 [US1] Add session start/stop logging to console per NFR-009
 
 **Checkpoint**: User Story 1 complete - app loads with config dialog, starts session, colors alternate at configured frequency
 
@@ -89,18 +89,18 @@
 
 ### Tests for User Story 2 (Write FIRST - ensure they FAIL before implementation)
 
-- [ ] T033 [P] [US2] Write integration test for pause/resume flow in tests/integration/sessionControl.test.tsx (keyboard/mouse/touch all trigger pause/resume)
-- [ ] T034 [P] [US2] Write unit test for useKeyboardMouse hook in tests/unit/hooks/useKeyboardMouse.test.ts (event handlers)
+- [X] T033 [P] [US2] Write integration test for pause/resume flow in tests/integration/pauseResume.test.tsx (keyboard/mouse/touch all trigger pause/resume)
+- [X] T034 [P] [US2] Write unit test for useKeyboardMouse hook in tests/unit/hooks/useKeyboardMouse.test.ts (event handlers)
 
 ### Implementation for User Story 2
 
-- [ ] T035 [P] [US2] Create PauseIndicator component in src/components/PauseIndicator.tsx with pause icon and animation
-- [ ] T036 [US2] Implement useKeyboardMouse hook in src/hooks/useKeyboardMouse.ts for keyboard/mouse/touch event handling
-- [ ] T037 [US2] Write unit test for PauseIndicator component in tests/unit/components/PauseIndicator.test.tsx (visibility, styling)
-- [ ] T038 [US2] Extend useTrainingSession hook to handle PAUSE and RESUME actions with timer cancellation
-- [ ] T039 [US2] Integrate PauseIndicator into ColorDisplay component (conditional rendering based on isPaused)
-- [ ] T040 [US2] Connect useKeyboardMouse to session pause/resume dispatch in App.tsx
-- [ ] T041 [US2] Add pause/resume logging to console per NFR-009
+- [X] T035 [P] [US2] Create PauseIndicator component in src/components/PauseIndicator.tsx with pause text and hint
+- [X] T036 [US2] Implement useKeyboardMouse hook in src/hooks/useKeyboardMouse.ts for keyboard/mouse/touch event handling
+- [X] T037 [US2] Write unit test for PauseIndicator component in tests/unit/components/PauseIndicator.test.tsx (visibility, styling)
+- [X] T038 [US2] Extend useTrainingSession hook to handle PAUSE and RESUME actions with timer cancellation (already complete from Phase 3)
+- [X] T039 [US2] Integrate PauseIndicator into ColorDisplay component (conditional rendering based on isPaused)
+- [X] T040 [US2] Connect useKeyboardMouse to session pause/resume in ColorDisplay.tsx
+- [X] T041 [US2] Add pause/resume logging to console per NFR-009
 
 **Checkpoint**: User Stories 1 AND 2 complete - session can be paused/resumed via any input method with visual feedback
 
@@ -114,16 +114,16 @@
 
 ### Tests for User Story 3 (Write FIRST - ensure they FAIL before implementation)
 
-- [ ] T042 [P] [US3] Write integration test for help overlay in tests/integration/helpOverlay.test.tsx (h/? opens, Escape closes, maintains session state)
-- [ ] T043 [P] [US3] Write unit test for HelpOverlay component in tests/unit/components/HelpOverlay.test.tsx (content, keyboard close)
+- [X] T042 [P] [US3] Write integration test for help overlay in tests/integration/helpOverlay.test.tsx (h/? opens, Escape closes, maintains session state)
+- [X] T043 [P] [US3] Write unit test for HelpOverlay component in tests/unit/components/HelpOverlay.test.tsx (content, keyboard close)
 
 ### Implementation for User Story 3
 
-- [ ] T044 [US3] Create HelpOverlay component in src/components/HelpOverlay.tsx with instructions and keyboard shortcuts
-- [ ] T045 [US3] Extend useKeyboardMouse hook to detect 'h' and '?' keys and dispatch SHOW_HELP action
-- [ ] T046 [US3] Add UIState management to App.tsx for showHelpOverlay state
-- [ ] T047 [US3] Integrate HelpOverlay into App.tsx with conditional rendering based on UIState
-- [ ] T048 [US3] Add Escape key handler to close help overlay without affecting session state
+- [X] T044 [US3] Create HelpOverlay component in src/components/HelpOverlay.tsx with instructions and keyboard shortcuts
+- [X] T045 [US3] Extend useKeyboardMouse hook to detect 'h' and '?' keys and dispatch SHOW_HELP action
+- [X] T046 [US3] Add UIState management to App.tsx for showHelpOverlay state
+- [X] T047 [US3] Integrate HelpOverlay into App.tsx with conditional rendering based on UIState
+- [X] T048 [US3] Add Escape key handler to close help overlay without affecting session state
 
 **Checkpoint**: User Stories 1, 2, AND 3 complete - users can access contextual help without disrupting training
 
@@ -137,17 +137,17 @@
 
 ### Tests for User Story 4 (Write FIRST - ensure they FAIL before implementation)
 
-- [ ] T049 [P] [US4] Write integration test for audio cues in tests/integration/audioCues.test.tsx (audio plays on color change when enabled)
-- [ ] T050 [P] [US4] Write unit test for useAudioCues hook in tests/unit/hooks/useAudioCues.test.ts (speak/cancel behavior)
+- [X] T049 [P] [US4] Write integration test for audio cues in tests/integration/audioCues.test.tsx (audio plays on color change when enabled)
+- [X] T050 [P] [US4] Write unit test for useAudioCues hook in tests/unit/hooks/useAudioCues.test.ts (speak/cancel behavior)
 
 ### Implementation for User Story 4
 
-- [ ] T051 [US4] Implement useAudioCues hook in src/hooks/useAudioCues.ts wrapping audioService with enabled state check
-- [ ] T052 [US4] Add audio toggle checkbox to ConfigDialog component for initial preference
-- [ ] T053 [US4] Integrate useAudioCues with useTrainingSession to trigger speech on COLOR_CHANGE action
-- [ ] T054 [US4] Add audio permission request on first user interaction per browser autoplay policies
-- [ ] T055 [US4] Cancel pending speech when session is paused to avoid delayed audio
-- [ ] T056 [US4] Add fallback UI message when speechSynthesis is not supported by browser
+- [X] T051 [US4] Implement useAudioCues hook in src/hooks/useAudioCues.ts wrapping audioService with enabled state check
+- [X] T052 [US4] Add audio toggle checkbox to ConfigDialog component for initial preference
+- [X] T053 [US4] Integrate useAudioCues with useTrainingSession to trigger speech on COLOR_CHANGE action
+- [X] T054 [US4] Add audio permission request on first user interaction per browser autoplay policies
+- [X] T055 [US4] Cancel pending speech when session is paused to avoid delayed audio
+- [X] T056 [US4] Add fallback UI message when speechSynthesis is not supported by browser
 
 **Checkpoint**: All 4 user stories complete - full feature set implemented with audio enhancement
 
@@ -161,18 +161,18 @@
 
 ### Tests for Settings (Write FIRST)
 
-- [ ] T057 [P] Write integration test for settings dialog in tests/integration/settingsDialog.test.tsx (open pauses session, save applies changes, cancel preserves old config)
-- [ ] T058 [P] Write unit test for SettingsButton component in tests/unit/components/SettingsButton.test.tsx
-- [ ] T059 [P] Write unit test for SettingsDialog component in tests/unit/components/SettingsDialog.test.tsx
+- [X] T057 [P] Write integration test for settings dialog in tests/integration/settingsDialog.test.tsx (open pauses session, save applies changes, cancel preserves old config)
+- [X] T058 [P] Write unit test for SettingsButton component in tests/unit/components/SettingsButton.test.tsx
+- [X] T059 [P] Write unit test for SettingsDialog component in tests/unit/components/SettingsDialog.test.tsx
 
 ### Implementation for Settings
 
-- [ ] T060 [P] Create SettingsButton component in src/components/SettingsButton.tsx (floating button visible during active session)
-- [ ] T061 [P] Create SettingsDialog component in src/components/SettingsDialog.tsx (frequency input + audio toggle)
-- [ ] T062 Add SHOW_SETTINGS_DIALOG and HIDE_SETTINGS_DIALOG actions to UIState management
-- [ ] T063 Add UPDATE_FREQUENCY action to useTrainingSession hook to change frequency mid-session
-- [ ] T064 Integrate SettingsButton and SettingsDialog into App.tsx with pause-on-open behavior
-- [ ] T065 Add settings change logging to console per NFR-009
+- [X] T060 [P] Create SettingsButton component in src/components/SettingsButton.tsx (floating button visible during active session)
+- [X] T061 [P] Create SettingsDialog component in src/components/SettingsDialog.tsx (frequency input + audio toggle)
+- [X] T062 Add SHOW_SETTINGS_DIALOG and HIDE_SETTINGS_DIALOG actions to UIState management
+- [X] T063 Add UPDATE_FREQUENCY action to useTrainingSession hook to change frequency mid-session
+- [X] T064 Integrate SettingsButton and SettingsDialog into App.tsx with pause-on-open behavior
+- [X] T065 Add settings change logging to console per NFR-009
 
 **Checkpoint**: Settings reconfiguration complete - users can adjust preferences without restarting
 
@@ -182,16 +182,16 @@
 
 **Purpose**: Accessibility compliance (NFR-010, NFR-011) and cross-cutting improvements
 
-- [ ] T066 [P] Add ARIA labels to all interactive elements (buttons, inputs, dialogs) per NFR-010
-- [ ] T067 [P] Implement ARIA live regions for color change announcements ("Moving LEFT"/"Moving RIGHT")
-- [ ] T068 [P] Test keyboard-only navigation: Tab to all controls, Enter/Space to activate, Escape to close dialogs
-- [ ] T069 [P] Add focus trap to dialogs (ConfigDialog, SettingsDialog, HelpOverlay) for keyboard accessibility
-- [ ] T070 [P] Verify responsive layout on devices 320px-2560px width per SC-004
-- [ ] T071 [P] Add CSS transitions for smooth color changes (60fps target per performance goals)
-- [ ] T072 [P] Optimize bundle size and verify <3s page load per NFR-007 and SC-006
-- [ ] T073 [P] Test across Chrome, Firefox, Safari, Edge (current and previous versions) per NFR-008
-- [ ] T074 Add React error boundary in App.tsx with user-friendly error display per NFR-009
-- [ ] T075 [P] Write accessibility integration test in tests/integration/accessibility.test.tsx (keyboard navigation, screen reader announcements)
+- [X] T066 [P] Add ARIA labels to all interactive elements (buttons, inputs, dialogs) per NFR-010
+- [X] T067 [P] Implement ARIA live regions for color change announcements ("Moving LEFT"/"Moving RIGHT")
+- [X] T068 [P] Test keyboard-only navigation: Tab to all controls, Enter/Space to activate, Escape to close dialogs
+- [X] T069 [P] Add focus trap to dialogs (ConfigDialog, SettingsDialog, HelpOverlay) for keyboard accessibility
+- [X] T070 [P] Verify responsive layout on devices 320px-2560px width per SC-004
+- [X] T071 [P] Add CSS transitions for smooth color changes (60fps target per performance goals)
+- [X] T072 [P] Optimize bundle size and verify <3s page load per NFR-007 and SC-006
+- [X] T073 [P] Test across Chrome, Firefox, Safari, Edge (current and previous versions) per NFR-008
+- [X] T074 Add React error boundary in App.tsx with user-friendly error display per NFR-009
+- [X] T075 [P] Write accessibility integration test in tests/integration/accessibility.test.tsx (keyboard navigation, screen reader announcements)
 
 ---
 
@@ -199,13 +199,13 @@
 
 **Purpose**: Production readiness and deployment automation
 
-- [ ] T076 [P] Update README.md with project description, setup instructions, and deployment link
-- [ ] T077 [P] Add inline code comments for complex logic (timer management, state machine transitions)
+- [X] T076 [P] Update README.md with project description, setup instructions, and deployment link
+- [X] T077 [P] Add inline code comments for complex logic (timer management, state machine transitions)
 - [ ] T078 Verify GitHub Actions workflow deploys successfully to GitHub Pages
 - [ ] T079 Test deployed application on GitHub Pages URL with all user stories
-- [ ] T080 [P] Run full test suite and verify 80%+ coverage per SC-011: `npm run test:coverage`
-- [ ] T081 [P] Validate quickstart.md instructions work for new developer setup
-- [ ] T082 Create production build and verify bundle optimization: `npm run build`
+- [X] T080 [P] Run full test suite and verify 80%+ coverage per SC-011: `npm run test:coverage`
+- [X] T081 [P] Validate quickstart.md instructions work for new developer setup
+- [X] T082 Create production build and verify bundle optimization: `npm run build`
 - [ ] T083 [P] Add build status badge to README.md
 
 ---

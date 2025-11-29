@@ -4,13 +4,16 @@
  * Root application component with error boundary and state management.
  */
 
-import { Component } from 'react';
+import { Component, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { ColorDisplay } from '@/components/ColorDisplay';
 import { ConfigDialog } from '@/components/ConfigDialog';
+import { HelpOverlay } from '@/components/HelpOverlay';
+import { SettingsButton } from '@/components/SettingsButton';
+import { SettingsDialog } from '@/components/SettingsDialog';
 import { useConfiguration } from '@/hooks/useConfiguration';
 import { useTrainingSession } from '@/hooks/useTrainingSession';
-import { audioService } from '@/services/audioService';
+import { useAudioCues } from '@/hooks/useAudioCues';
 
 // Error Boundary Component
 class ErrorBoundary extends Component<
@@ -60,7 +63,25 @@ class ErrorBoundary extends Component<
 // Main App Content
 function AppContent() {
   const { config, updateConfig } = useConfiguration();
-  const { session, start, pause, resume } = useTrainingSession();
+  const { session, start, pause, resume, updateFrequency } = useTrainingSession();
+  const { speak, cancel, isSupported } = useAudioCues(config.audioEnabled);
+  const [showHelpOverlay, setShowHelpOverlay] = useState(false);
+  const [showSettingsDialog, setShowSettingsDialog] = useState(false);
+
+  // Play audio cue when color changes or session starts
+  useEffect(() => {
+    if (session.isActive && !session.isPaused) {
+      const direction = session.currentColor === 'blue' ? 'LEFT' : 'RIGHT';
+      speak(direction);
+    }
+  }, [session.currentColor, session.isActive, session.isPaused, speak]);
+
+  // Cancel audio when session pauses
+  useEffect(() => {
+    if (session.isPaused) {
+      cancel();
+    }
+  }, [session.isPaused, cancel]);
 
   // Handle configuration submission
   const handleConfigSubmit = (frequency: number, audioEnabled: boolean) => {
@@ -77,33 +98,55 @@ function AppContent() {
       hasCompletedFirstRun: true,
     });
 
-    // Start training session
+    // Start training session (audio will be triggered by useEffect)
     start(frequency);
+  };
 
-    // Announce first color if audio enabled
-    if (audioEnabled && audioService.isSupported()) {
-      const direction = session.currentColor === 'blue' ? 'LEFT' : 'RIGHT';
-      audioService.speak(direction);
+  // Handle pause/resume toggle
+  const handlePauseResume = () => {
+    if (session.isPaused) {
+      resume();
+    } else if (session.isActive) {
+      pause();
     }
   };
 
-  // Handle color display click (pause/resume)
-  const handleColorDisplayClick = () => {
-    if (session.isPaused) {
-      console.log('[Training] Session resumed', {
-        sessionId: session.id,
-        elapsedTime: session.elapsedTime,
-        timestamp: new Date().toISOString()
-      });
-      resume();
-    } else if (session.isActive) {
-      console.log('[Training] Session paused', {
-        sessionId: session.id,
-        elapsedTime: session.elapsedTime,
-        colorChangeCount: session.colorChangeCount,
-        timestamp: new Date().toISOString()
-      });
+  // Handle settings button click
+  const handleSettingsOpen = () => {
+    setShowSettingsDialog(true);
+    if (session.isActive && !session.isPaused) {
       pause();
+    }
+  };
+
+  // Handle settings save
+  const handleSettingsSave = (frequency: number, audioEnabled: boolean) => {
+    console.log('[Training] Settings changed', {
+      oldFrequency: config.frequency,
+      newFrequency: frequency,
+      oldAudioEnabled: config.audioEnabled,
+      newAudioEnabled: audioEnabled,
+      timestamp: new Date().toISOString()
+    });
+
+    // Update configuration
+    updateConfig({ frequency, audioEnabled });
+
+    // Update session frequency
+    updateFrequency(frequency);
+
+    // Close dialog and resume session
+    setShowSettingsDialog(false);
+    if (session.isActive) {
+      resume();
+    }
+  };
+
+  // Handle settings cancel
+  const handleSettingsCancel = () => {
+    setShowSettingsDialog(false);
+    if (session.isActive && session.isPaused) {
+      resume();
     }
   };
 
@@ -132,11 +175,33 @@ function AppContent() {
 
   // Show color display once configured
   return (
-    <ColorDisplay
-      currentColor={session.currentColor}
-      isPaused={session.isPaused}
-      onClick={handleColorDisplayClick}
-    />
+    <>
+      {config.audioEnabled && !isSupported && (
+        <div className="audio-unsupported-banner" role="alert">
+          Audio cues are not supported in this browser
+        </div>
+      )}
+      <ColorDisplay
+        currentColor={session.currentColor}
+        isPaused={session.isPaused}
+        onPauseResume={handlePauseResume}
+        onHelp={() => setShowHelpOverlay(true)}
+      />
+      {session.isActive && (
+        <SettingsButton onClick={handleSettingsOpen} />
+      )}
+      <HelpOverlay 
+        isVisible={showHelpOverlay}
+        onClose={() => setShowHelpOverlay(false)}
+      />
+      <SettingsDialog
+        isOpen={showSettingsDialog}
+        currentFrequency={config.frequency}
+        currentAudioEnabled={config.audioEnabled}
+        onSave={handleSettingsSave}
+        onCancel={handleSettingsCancel}
+      />
+    </>
   );
 }
 

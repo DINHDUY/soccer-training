@@ -68,6 +68,39 @@ describe('storageService', () => {
       const saved = localStorage.getItem('soccer-training-config');
       expect(saved).toBe(JSON.stringify(mockConfig));
     });
+
+    it('should handle errors gracefully when saving fails', () => {
+      const consoleErrorSpy = vi
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
+
+      // Mock localStorage.setItem to throw error
+      const originalSetItem = localStorage.setItem;
+      localStorage.setItem = vi.fn(() => {
+        throw new Error('Storage quota exceeded');
+      });
+
+      const mockConfig: UserConfiguration = {
+        frequency: 3.0,
+        audioEnabled: false,
+        hasCompletedFirstRun: true,
+        audioPermissionGranted: true,
+      };
+
+      // Should not throw
+      expect(() => {
+        storageService.saveConfig(mockConfig);
+      }).not.toThrow();
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        '[storageService] Failed to save config:',
+        expect.any(Error)
+      );
+
+      // Restore
+      localStorage.setItem = originalSetItem;
+      consoleErrorSpy.mockRestore();
+    });
   });
 
   describe('clearConfig', () => {
@@ -88,6 +121,32 @@ describe('storageService', () => {
 
       const saved = localStorage.getItem('soccer-training-config');
       expect(saved).toBeNull();
+    });
+
+    it('should handle errors gracefully when clearing fails', () => {
+      const consoleErrorSpy = vi
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
+
+      // Mock localStorage.removeItem to throw error
+      const originalRemoveItem = localStorage.removeItem;
+      localStorage.removeItem = vi.fn(() => {
+        throw new Error('Storage access denied');
+      });
+
+      // Should not throw
+      expect(() => {
+        storageService.clearConfig();
+      }).not.toThrow();
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        '[storageService] Failed to clear config:',
+        expect.any(Error)
+      );
+
+      // Restore
+      localStorage.removeItem = originalRemoveItem;
+      consoleErrorSpy.mockRestore();
     });
   });
 });
