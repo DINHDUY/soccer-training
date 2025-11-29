@@ -3,15 +3,19 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [react()],
-  base: '/soccer-training-app/',
+  // Use '/soccer-training-app/' for GitHub Pages, '/' for local preview
+  base: command === 'build' && process.env.GITHUB_PAGES ? '/soccer-training-app/' : '/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
   },
-  // @ts-expect-error - Vitest config
+  preview: {
+    port: 3000,
+    strictPort: false,
+  },
   test: {
     globals: true,
     environment: 'jsdom',
@@ -21,4 +25,4 @@ export default defineConfig({
       exclude: ['node_modules/', 'src/test/'],
     },
   },
-})
+}));

@@ -143,4 +143,54 @@ describe('useKeyboardMouse', () => {
 
     expect(handler).not.toHaveBeenCalled();
   });
+
+  it('should ignore clicks on elements with closest() returning interactive elements', () => {
+    const handler = vi.fn();
+    renderHook(() => useKeyboardMouse(handler));
+
+    // Create a mock element with closest method
+    const mockElement = {
+      tagName: 'SPAN',
+      closest: vi.fn((selector: string) => {
+        if (selector === 'button') {
+          return { tagName: 'BUTTON' }; // Return a button element
+        }
+        return null;
+      }),
+    };
+
+    // Simulate click event with mock element as target
+    const event = new MouseEvent('click', { bubbles: true });
+    Object.defineProperty(event, 'target', { value: mockElement, writable: false });
+    document.dispatchEvent(event);
+
+    // Handler should not be called because target is inside a button
+    expect(handler).not.toHaveBeenCalled();
+    expect(mockElement.closest).toHaveBeenCalledWith('button');
+  });
+
+  it('should ignore clicks on elements with closest() returning links', () => {
+    const handler = vi.fn();
+    renderHook(() => useKeyboardMouse(handler));
+
+    // Create a mock element with closest method returning link
+    const mockElement = {
+      tagName: 'SPAN',
+      closest: vi.fn((selector: string) => {
+        if (selector === 'a') {
+          return { tagName: 'A' }; // Return an anchor element
+        }
+        return null;
+      }),
+    };
+
+    // Simulate click event with mock element as target
+    const event = new MouseEvent('click', { bubbles: true });
+    Object.defineProperty(event, 'target', { value: mockElement, writable: false });
+    document.dispatchEvent(event);
+
+    // Handler should not be called because target is inside a link
+    expect(handler).not.toHaveBeenCalled();
+    expect(mockElement.closest).toHaveBeenCalledWith('a');
+  });
 });

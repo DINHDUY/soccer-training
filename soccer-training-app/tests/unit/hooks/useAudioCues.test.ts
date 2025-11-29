@@ -115,4 +115,31 @@ describe('useAudioCues', () => {
     // Restore
     window.speechSynthesis.speak = originalSpeak;
   });
+
+  it('should handle cancel errors gracefully', () => {
+    const { result } = renderHook(() => useAudioCues(true));
+    const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+    // Mock cancel to throw error
+    const originalCancel = window.speechSynthesis.cancel;
+    window.speechSynthesis.cancel = vi.fn(() => {
+      throw new Error('Cancel error');
+    });
+
+    expect(() => {
+      act(() => {
+        result.current.cancel();
+      });
+    }).not.toThrow();
+
+    // Verify warning was logged
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      '[Audio] Failed to cancel:',
+      expect.any(Error)
+    );
+
+    // Restore
+    window.speechSynthesis.cancel = originalCancel;
+    consoleWarnSpy.mockRestore();
+  });
 });

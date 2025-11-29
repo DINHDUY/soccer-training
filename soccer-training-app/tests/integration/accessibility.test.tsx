@@ -12,6 +12,9 @@ import App from '../../src/App';
 
 describe('Accessibility Integration', () => {
   beforeEach(() => {
+    // Clear localStorage to ensure clean state for each test
+    localStorage.clear();
+    
     // Mock speechSynthesis for audio tests
     window.speechSynthesis = {
       speak: vi.fn(),
@@ -177,9 +180,12 @@ describe('Accessibility Integration', () => {
         expect(screen.getByText(/paused/i)).toBeInTheDocument();
       });
 
-      // Live region should be empty when paused
-      const liveRegion = screen.getByRole('status');
-      expect(liveRegion).toHaveTextContent('');
+      // Live region should be empty when paused (find the sr-only one, not the pause indicator)
+      const liveRegions = screen.getAllByRole('status');
+      const announcementRegion = liveRegions.find(region => 
+        region.className.includes('sr-only')
+      );
+      expect(announcementRegion).toHaveTextContent('');
     });
 
     it('should update main aria-label with current direction', async () => {

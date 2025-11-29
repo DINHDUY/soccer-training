@@ -22,7 +22,7 @@ A responsive React web application for soccer agility training with color-based 
 
 ### Installation
 
-\`\`\`bash
+```bash
 # Clone the repository
 git clone https://github.com/DINHDUY/soccer-training.git
 cd soccer-training-app
@@ -32,7 +32,7 @@ npm install
 
 # Start development server
 npm run dev
-\`\`\`
+```
 
 Open [http://localhost:5173](http://localhost:5173) in your browser.
 
@@ -65,7 +65,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ## 🧪 Testing
 
-\`\`\`bash
+```bash
 # Run all tests
 npm test
 
@@ -74,7 +74,7 @@ npm run test:ui
 
 # Run tests with coverage
 npm run test:coverage
-\`\`\`
+```
 
 ### Test Coverage
 
@@ -85,7 +85,7 @@ npm run test:coverage
 
 ## 🔨 Development
 
-\`\`\`bash
+```bash
 # Start dev server with hot reload
 npm run dev
 
@@ -103,11 +103,11 @@ npm run build
 
 # Preview production build
 npm run preview
-\`\`\`
+```
 
 ### Project Structure
 
-\`\`\`
+```
 soccer-training-app/
 ├── src/
 │   ├── components/       # React UI components
@@ -119,7 +119,7 @@ soccer-training-app/
 │   ├── unit/             # Component & hook unit tests
 │   └── integration/      # User flow integration tests
 └── specs/                # Feature specifications
-\`\`\`
+```
 
 ## 📦 Deployment
 
@@ -127,9 +127,9 @@ The app automatically deploys to GitHub Pages on push to \`main\` branch via Git
 
 ### Manual Deployment
 
-\`\`\`bash
+```bash
 npm run deploy
-\`\`\`
+```
 
 ## ♿ Accessibility
 

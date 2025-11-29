@@ -201,6 +201,7 @@ describe('useTrainingSession', () => {
   });
 
   it('should clear timer on unmount', () => {
+    const clearTimeoutSpy = vi.spyOn(window, 'clearTimeout');
     const { result, unmount } = renderHook(() => useTrainingSession());
 
     act(() => {
@@ -211,7 +212,28 @@ describe('useTrainingSession', () => {
 
     unmount();
 
-    // Should not throw errors or leak timers
-    expect(true).toBe(true);
+    // Verify clearTimeout was called during cleanup
+    expect(clearTimeoutSpy).toHaveBeenCalled();
+    clearTimeoutSpy.mockRestore();
+  });
+
+  it('should generate new session ID on reset', () => {
+    const { result } = renderHook(() => useTrainingSession());
+
+    act(() => {
+      result.current.start(2);
+    });
+
+    const firstSessionId = result.current.session.id;
+
+    act(() => {
+      result.current.reset();
+    });
+
+    const secondSessionId = result.current.session.id;
+
+    // Session IDs should be different after reset
+    expect(secondSessionId).not.toBe(firstSessionId);
+    expect(result.current.session.isActive).toBe(false);
   });
 });
