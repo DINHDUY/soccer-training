@@ -78,7 +78,7 @@ describe('ColorDisplay', () => {
     
     render(<ColorDisplay currentColor="blue" isPaused={false} onPauseResume={handlePauseResume} />);
 
-    expect(useKeyboardMouse).toHaveBeenCalledWith(handlePauseResume);
+    expect(useKeyboardMouse).toHaveBeenCalledWith(handlePauseResume, { onHelp: undefined });
   });
 
   it('should log pause state changes', async () => {

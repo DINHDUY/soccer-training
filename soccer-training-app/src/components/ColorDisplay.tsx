@@ -14,9 +14,10 @@ export interface ColorDisplayProps {
   currentColor: ColorDirection;
   isPaused: boolean;
   onPauseResume: () => void;
+  onHelp?: () => void;
 }
 
-export function ColorDisplay({ currentColor, isPaused, onPauseResume }: ColorDisplayProps) {
+export function ColorDisplay({ currentColor, isPaused, onPauseResume, onHelp }: ColorDisplayProps) {
   const direction = currentColor === 'blue' ? 'LEFT' : 'RIGHT';
   const isPausedRef = useRef(isPaused);
 
@@ -33,8 +34,8 @@ export function ColorDisplay({ currentColor, isPaused, onPauseResume }: ColorDis
     }
   }, [isPaused]);
 
-  // Set up keyboard/mouse/touch handlers for pause/resume
-  useKeyboardMouse(onPauseResume);
+  // Set up keyboard/mouse/touch handlers for pause/resume and help
+  useKeyboardMouse(onPauseResume, { onHelp });
 
   return (
     <main

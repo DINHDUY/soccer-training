@@ -4,10 +4,11 @@
  * Root application component with error boundary and state management.
  */
 
-import { Component } from 'react';
+import { Component, useState } from 'react';
 import type { ReactNode } from 'react';
 import { ColorDisplay } from '@/components/ColorDisplay';
 import { ConfigDialog } from '@/components/ConfigDialog';
+import { HelpOverlay } from '@/components/HelpOverlay';
 import { useConfiguration } from '@/hooks/useConfiguration';
 import { useTrainingSession } from '@/hooks/useTrainingSession';
 import { audioService } from '@/services/audioService';
@@ -61,6 +62,7 @@ class ErrorBoundary extends Component<
 function AppContent() {
   const { config, updateConfig } = useConfiguration();
   const { session, start, pause, resume } = useTrainingSession();
+  const [showHelpOverlay, setShowHelpOverlay] = useState(false);
 
   // Handle configuration submission
   const handleConfigSubmit = (frequency: number, audioEnabled: boolean) => {
@@ -121,11 +123,18 @@ function AppContent() {
 
   // Show color display once configured
   return (
-    <ColorDisplay
-      currentColor={session.currentColor}
-      isPaused={session.isPaused}
-      onPauseResume={handlePauseResume}
-    />
+    <>
+      <ColorDisplay
+        currentColor={session.currentColor}
+        isPaused={session.isPaused}
+        onPauseResume={handlePauseResume}
+        onHelp={() => setShowHelpOverlay(true)}
+      />
+      <HelpOverlay 
+        isVisible={showHelpOverlay}
+        onClose={() => setShowHelpOverlay(false)}
+      />
+    </>
   );
 }
 

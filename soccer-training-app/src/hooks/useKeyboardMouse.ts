@@ -1,15 +1,27 @@
 import { useEffect, useRef } from 'react';
 
-export function useKeyboardMouse(handler: () => void) {
-  const handlerRef = useRef(handler);
+interface UseKeyboardMouseOptions {
+  onHelp?: () => void;
+}
 
-  // Keep handler ref updated
+export function useKeyboardMouse(handler: () => void, options?: UseKeyboardMouseOptions) {
+  const handlerRef = useRef(handler);
+  const onHelpRef = useRef(options?.onHelp);
+
+  // Keep handler refs updated
   useEffect(() => {
     handlerRef.current = handler;
-  }, [handler]);
+    onHelpRef.current = options?.onHelp;
+  }, [handler, options?.onHelp]);
 
   useEffect(() => {
     const handleKeydown = (e: KeyboardEvent) => {
+      // Check for help keys first
+      if ((e.key === 'h' || e.key === '?') && onHelpRef.current) {
+        onHelpRef.current();
+        return;
+      }
+
       // Ignore if typing in an input field
       const target = e.target as HTMLElement;
       if (
@@ -20,6 +32,12 @@ export function useKeyboardMouse(handler: () => void) {
       ) {
         return;
       }
+
+      // Ignore help and escape keys for pause/resume
+      if (e.key === 'h' || e.key === '?' || e.key === 'Escape') {
+        return;
+      }
+
       handlerRef.current();
     };
 
